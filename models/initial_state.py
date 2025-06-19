@@ -29,5 +29,4 @@ def build_initial_state(N, spin_up_down,operators,initial_rotation):
         else:
             print("Choose the spin state: 'up' or 'down'")
     
-    # Apply rotation to initial state
     return rotate @ psi0

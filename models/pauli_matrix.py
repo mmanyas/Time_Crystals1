@@ -6,7 +6,18 @@ sigma_z = np.array([[1,0],[0,-1]], dtype=complex)/2
 
 identity = np.eye(2, dtype=complex)
 
+def sigma_i(direction):
 
+    result = identity
+    match direction:
+        case 'x':
+            result = sigma_x
+        case 'y':
+            result = sigma_y
+        case 'z':
+            result = sigma_z
+
+    return result
 
 
 
