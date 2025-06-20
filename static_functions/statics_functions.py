@@ -6,6 +6,9 @@ sigma_z = np.array([[1,0],[0,-1]], dtype=complex)
 
 identity = np.eye(2, dtype=complex)
 
+
+
+
 def sigma_i(direction):
     """
     direction: axis direction of the Pauli matrix, can be x,y,z
@@ -27,11 +30,10 @@ def sigma_i(direction):
 
 def create_spin_operators(N, direction):
     """
-    Devuelve la matriz de Pauli direccionada a un sitio específico en una cadena de N espines.
     Args:
         N (int): Número de espines del sistema
         direction (str): 'x', 'y' o 'z'
-        Returns: list of np.ndarray, Matriz 2^N x 2^N del operador deseado
+        Returns: list of np.ndarray, matrix 2^N x 2^N del operador deseado
     """
     
     if direction == 'x':
@@ -64,13 +66,10 @@ def create_spin_operators(N, direction):
 
 
 def create_spin_xyz_operators(n):
-    """Crea matrices de spin para un sistema de n partículas.
+    """ Crea matrices de spin para un sistema de n partículas.
     Args:
         n: Número de partículas/spins en el sistema.
-
-    Returns:
-        Tres listas conteniendo las matrices Sx, Sy, Sz para cada partícula,
-        donde cada matriz está en el espacio de Hilbert completo del sistema.
+    Returns: Sx_list, Sy_list, Sz_list. if n=2, sx_list = [sx0, sx1] ....
     """
     sx_list = []
     sy_list = []
@@ -96,4 +95,18 @@ def create_spin_xyz_operators(n):
         sz_list.append(sz)
 
     return sx_list, sy_list, sz_list
+
+
+
+def disorder_x(Nl,deltal):
+    """
+    create a disorder vector in x-direction between [-delta/2:delta/2]
+    Nl: Number of sipins of the system
+    deltal: Limits the values of the randomly generated disorder vector
+    Returns: Returns a disorder vector of Nl size
+    """
+
+    return np.random.uniform(-deltal/2, deltal/2, Nl)
+
+
 

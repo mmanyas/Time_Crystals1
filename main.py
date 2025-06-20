@@ -12,5 +12,6 @@ from static_functions.statics_functions import*
 #from estimation.parameter_estimation import estimate_optimal_parameter
 
 
+sx,_, sz = create_spin_xyz_operators(3)
 
-print(sigma_i('y'))
+print(disorder_x(2, 0.5))
