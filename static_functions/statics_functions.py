@@ -152,7 +152,10 @@ def spin_rotator(opr, angle):
     return expm( -1j * angle * sum(opr) )
 
 
-def check_rotation(rot):
+def check_rotatior(rot):
+    """
+    rot: it check if the rotation is unitary or not.
+    """
     inver = rot.conj().T
     check = inver @ rot
     N = rot.shape[0]
