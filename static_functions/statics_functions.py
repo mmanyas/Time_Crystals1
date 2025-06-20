@@ -1,12 +1,16 @@
 import numpy as np
 
-sigma_x = np.array([[0,1],[1,0]], dtype=complex)/2
-sigma_y = np.array([[0,-1j],[1j,0]], dtype=complex)/2
-sigma_z = np.array([[1,0],[0,-1]], dtype=complex)/2
+sigma_x = np.array([[0,1],[1,0]], dtype=complex)
+sigma_y = np.array([[0,-1j],[1j,0]], dtype=complex)
+sigma_z = np.array([[1,0],[0,-1]], dtype=complex)
 
 identity = np.eye(2, dtype=complex)
 
 def sigma_i(direction):
+    """
+    direction: axis direction of the Pauli matrix, can be x,y,z
+    return: return Pauli spin matrix
+    """
 
     result = identity
     match direction:
@@ -21,28 +25,23 @@ def sigma_i(direction):
 
 
 
-def build_pmatrix(N, direction):
+def create_spin_operators(N, direction):
     """
     Devuelve la matriz de Pauli direccionada a un sitio específico en una cadena de N espines.
-
     Args:
-        N (int): Número de espines
-        site (int): Sitio donde se aplica el operador (0-indexado)
+        N (int): Número de espines del sistema
         direction (str): 'x', 'y' o 'z'
-
-    Returns:
-        np.ndarray: Matriz 2^N x 2^N del operador deseado
+        Returns: list of np.ndarray, Matriz 2^N x 2^N del operador deseado
     """
+    
     if direction == 'x':
-        op = sigma_x
+        op = sigma_x/2
     elif direction == 'y':
-        op = sigma_y
+        op = sigma_y/2
     elif direction == 'z':
-        op = sigma_z
+        op = sigma_z/2
     else:
         raise ValueError("Dirección inválida. Usa 'x', 'y' o 'z'.")
-
-
 
     result = []
 
@@ -57,18 +56,15 @@ def build_pmatrix(N, direction):
 
         result.append(matriz)
 
+    
     return result
 
 
 
 
 
-
-
-
-def create_Sxyz(n):
+def create_spin_xyz_operators(n):
     """Crea matrices de spin para un sistema de n partículas.
-
     Args:
         n: Número de partículas/spins en el sistema.
 
@@ -87,9 +83,9 @@ def create_Sxyz(n):
 
         for j in range(n):
             if j == i:
-                sx = np.kron(sx, sigma_x) # tensor product
-                sy = np.kron(sy, sigma_y)
-                sz = np.kron(sz, sigma_z)
+                sx = np.kron(sx, sigma_x/2) # tensor product
+                sy = np.kron(sy, sigma_y/2)
+                sz = np.kron(sz, sigma_z/2)
             else:
                 sx = np.kron(sx, identity)
                 sy = np.kron(sy, identity)

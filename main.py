@@ -1,7 +1,7 @@
 import numpy as np
 
 from config import params
-from static_function import*
+from static_functions.statics_functions import*
 #from models.pauli_matrix import build_pmatrix, sigma_i
 #from models.initial_state import build_initial_state
 #from models.hamiltonian import build_hamiltonian
@@ -13,4 +13,4 @@ from static_function import*
 
 
 
-print(params["J"] )
+print(sigma_i('y'))
