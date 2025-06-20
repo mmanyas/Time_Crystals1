@@ -1,12 +1,11 @@
 import numpy as np
+from scipy.linalg import expm 
 
 sigma_x = np.array([[0,1],[1,0]], dtype=complex)
 sigma_y = np.array([[0,-1j],[1j,0]], dtype=complex)
 sigma_z = np.array([[1,0],[0,-1]], dtype=complex)
 
 identity = np.eye(2, dtype=complex)
-
-
 
 
 def sigma_i(direction):
@@ -25,7 +24,6 @@ def sigma_i(direction):
             result = sigma_z
 
     return result
-
 
 
 def create_spin_operators(N, direction):
@@ -49,20 +47,14 @@ def create_spin_operators(N, direction):
 
     for i in range(N):
         matriz = 1
-
         for j in range(N):
             if j==i:
                 matriz = np.kron(matriz, op)
             else:
                 matriz = np.kron(matriz, identity)
-
         result.append(matriz)
-
     
     return result
-
-
-
 
 
 def create_spin_xyz_operators(n):
@@ -89,14 +81,11 @@ def create_spin_xyz_operators(n):
                 sx = np.kron(sx, identity)
                 sy = np.kron(sy, identity)
                 sz = np.kron(sz, identity)
-
         sx_list.append(sx)
         sy_list.append(sy)
         sz_list.append(sz)
 
     return sx_list, sy_list, sz_list
-
-
 
 def disorder_x(Nl, deltal):
     """
@@ -105,7 +94,6 @@ def disorder_x(Nl, deltal):
     deltal: Limits the values of the randomly generated disorder vector
     Returns: Returns a disorder vector of Nl size
     """
-
     return np.random.uniform(-deltal/2, deltal/2, Nl)
 
 
@@ -116,8 +104,8 @@ def disorder_y(Nl, deltal):
     deltal: Limits the values of the randomly generated disorder vector
     Returns: Returns a disorder vector of Nl size
     """
-
     return np.random.uniform(-deltal/2, deltal/2, Nl)
+
 
 def disorder_z(Nl, deltal):
     """
@@ -126,7 +114,6 @@ def disorder_z(Nl, deltal):
     deltal: Limits the values of the randomly generated disorder vector
     Returns: Returns a disorder vector of Nl size
     """
-
     return np.random.uniform(0, deltal/2, Nl)
 
 
@@ -136,13 +123,10 @@ def initial_state_up(Nl):
     Nl: Number of spins 
     Returns: Returns a column vector 
     """
-
-    up = np.array([[1],[0]], dtype='complex')
+    up   = np.array([[1],[0]], dtype='complex')
     psi0 = 1
-
     for _ in range(Nl):
         psi0 = np.kron(psi0,up)
-
     return psi0
 
 
@@ -152,12 +136,28 @@ def initial_state_down(Nl):
     Nl: Number of spins 
     Returns: Returns a column vector 
     """
-
-    up = np.array([[0],[1]], dtype='complex')
+    down = np.array([[0],[1]], dtype='complex')
     psi0 = 1
-
     for _ in range(Nl):
-        psi0 = np.kron(psi0,up)
-
+        psi0 = np.kron(psi0,down)
     return psi0
+
+
+def spin_rotator(opr, angle):
+    """
+    This function create a spin operador rotator
+    opr: Matrix rotation, can be Pauli matrices
+    angle: Angle of rotations
+    """
+    return expm( -1j * angle * sum(opr) )
+
+
+def check_rotation(rot):
+    inver = rot.conj().T
+    check = inver @ rot
+    N = rot.shape[0]
+
+    is_unitary = np.allclose(check, np.eye(N))
+    print("Is the rotation unitary? ", is_unitary)
+
 

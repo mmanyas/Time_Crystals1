@@ -11,5 +11,4 @@ from static_functions.statics_functions import*
 #from observables.fisher_information import fisher_quantum, fisher_classical
 #from estimation.parameter_estimation import estimate_optimal_parameter
 
-
-print(initial_state_down(3)) 
+print("everything is fine")
