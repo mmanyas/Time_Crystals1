@@ -130,3 +130,34 @@ def disorder_z(Nl, deltal):
     return np.random.uniform(0, deltal/2, Nl)
 
 
+def initial_state_up(Nl):
+    """
+    Create initial quantum state with all spin up of Nl spin-system
+    Nl: Number of spins 
+    Returns: Returns a column vector 
+    """
+
+    up = np.array([[1],[0]], dtype='complex')
+    psi0 = 1
+
+    for _ in range(Nl):
+        psi0 = np.kron(psi0,up)
+
+    return psi0
+
+
+def initial_state_down(Nl):
+    """
+    Create initial quantum state with all spin down of Nl spin-system
+    Nl: Number of spins 
+    Returns: Returns a column vector 
+    """
+
+    up = np.array([[0],[1]], dtype='complex')
+    psi0 = 1
+
+    for _ in range(Nl):
+        psi0 = np.kron(psi0,up)
+
+    return psi0
+

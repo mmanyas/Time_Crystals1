@@ -12,4 +12,4 @@ from static_functions.statics_functions import*
 #from estimation.parameter_estimation import estimate_optimal_parameter
 
 
-print(disorder_z(6, 0.5))
+print(initial_state_down(3)) 
