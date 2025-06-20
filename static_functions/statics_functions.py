@@ -98,7 +98,7 @@ def create_spin_xyz_operators(n):
 
 
 
-def disorder_x(Nl,deltal):
+def disorder_x(Nl, deltal):
     """
     create a disorder vector in x-direction between [-delta/2:delta/2]
     Nl: Number of sipins of the system
@@ -108,5 +108,25 @@ def disorder_x(Nl,deltal):
 
     return np.random.uniform(-deltal/2, deltal/2, Nl)
 
+
+def disorder_y(Nl, deltal):
+    """
+    create a disorder vector in y-direction between [-delta/2:delta/2]
+    Nl: Number of sipins of the system
+    deltal: Limits the values of the randomly generated disorder vector
+    Returns: Returns a disorder vector of Nl size
+    """
+
+    return np.random.uniform(-deltal/2, deltal/2, Nl)
+
+def disorder_z(Nl, deltal):
+    """
+    create a disorder vector in z-direction between [-delta/2:delta/2]
+    Nl: Number of sipins of the system
+    deltal: Limits the values of the randomly generated disorder vector
+    Returns: Returns a disorder vector of Nl size
+    """
+
+    return np.random.uniform(0, deltal/2, Nl)
 
 
