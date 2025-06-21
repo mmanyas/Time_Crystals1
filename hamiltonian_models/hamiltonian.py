@@ -46,3 +46,14 @@ def H_drive(spin_list_matrices):
     spin_list_matrices: Lista de matrices de espin
     """
     return np.sum(spin_list_matrices,axis=0)
+
+
+def hamiltoniano(Nl, omegal, disorder_xl, disorder_zl, sxl, szl):
+    H_is = H_ising(szl)
+    H_ds = H_disorder(sxl, szl, disorder_xl, disorder_zl)
+    H_dr = H_drive(szl)
+
+    def h(t, b):
+        return H_is + H_ds + b * np.sin(omegal * t)*H_dr
+
+    return h
