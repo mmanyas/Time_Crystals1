@@ -164,3 +164,10 @@ def check_rotatior(rot):
     print("Is the rotation unitary? ", is_unitary)
 
 
+def is_normalized(psi):
+    """
+    psi: Es el estado cuantico a verificar la conservacion de la norma
+    """
+    norma = np.vdot(psi,psi)
+    boolean = np.abs(norma - 1)<1e-10
+    print("is normalized? ", boolean)
