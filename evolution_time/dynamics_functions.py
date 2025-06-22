@@ -1,4 +1,4 @@
-from scipy.linalg import expm
+from scipy.linalg import expm, eig
 import numpy as np
 
 
@@ -46,6 +46,16 @@ def U_floquet2T(H_t, H_kick, beta, T, t_step):
     return U0
 
 
+def psi_expandido(U, psi0, n):
+    """
+    U: Operador de evolucion unitario a ser expandido
+    psi0: Estado inicial del sistema
+    n: Numero de pulsos de floquet aplicados
+    """
+    evals, evecs = eig(U)
+    coef = [ np.vdot(evecs[:,i],psi0) for i in range(evecs.shape[1])]
+    psit = np.zeros_like(psi0)
+    for i in range(len(coef)):
+        psit += evals[i]**n * coef[i] * evecs[:,i].reshape(-1,1)
 
-
-
+    return psit
